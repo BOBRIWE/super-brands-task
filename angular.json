@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "super-brands-task"
+    }
+  },
+  "defaultProject": "super-brands-task",
+  "cli": {
+    "analytics": "8828c24e-a191-4807-9fe3-c1b94a0a08d5"
+  }
 }
