@@ -7,6 +7,9 @@ import { EmployersItemComponent } from './components/employers-item/employers-it
 
 @NgModule({
   declarations: [EmployersListComponent, EmployersItemComponent],
+  exports: [
+    EmployersListComponent
+  ],
   imports: [
     CommonModule
   ]

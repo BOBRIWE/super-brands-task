@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormContainerComponent } from './components/form-container/form-container.component';
+import { EmployersListModule } from '../employers-list/employers-list.module';
 
 
 
@@ -10,7 +11,8 @@ import { FormContainerComponent } from './components/form-container/form-contain
     FormContainerComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    EmployersListModule
   ]
 })
 export class ManageEmployersFormModule { }
