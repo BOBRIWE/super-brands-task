@@ -1,0 +1,10 @@
+:host {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+
+  padding: 35px;
+
+  background: rgba(0, 0, 0, 0.02);
+
+  height: 100px;
+}
