@@ -1,0 +1,36 @@
+:host {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: auto auto 1fr auto;
+  column-gap: 16px;
+  align-items: center;
+
+  & > .avatar {
+
+  }
+
+  & > .employer-name {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    align-items: center;
+    color: #424242;
+  }
+
+  & > .shops-count {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    color: #007AFF;
+  }
+
+  & > .bin {
+
+  }
+}
