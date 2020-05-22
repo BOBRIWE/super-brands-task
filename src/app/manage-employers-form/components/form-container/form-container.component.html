@@ -6,6 +6,8 @@
   ></app-employers-list>
 </section>
 <section class="right">
-  <article class="buttons"></article>
+  <article class="buttons">
+    <button class="button" (click)="saveManyToMany()">Сохранить изменения</button>
+  </article>
   <app-shops-list (shopClicked)="shopClicked($event)" [shops]="emptyShops"></app-shops-list>
 </section>

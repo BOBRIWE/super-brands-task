@@ -11,10 +11,15 @@ export class CreateWorkerShopRequestService {
 
   constructor(private http: HttpClient) { }
 
-  async createWorkerShopRequest(manyToMany: IManyToManyItem): Promise<boolean> {
+  async createWorkerShopRequest(manyToMany: IManyToManyItem[]): Promise<boolean> {
     const body = JSON.stringify(manyToMany);
     try {
-      this.http.post('', body);
+      this.http.post('http://localhost', {manyToMany: body}).subscribe(
+        () => {
+          console.log('send');
+        },
+        error => console.log(error)
+      );
       return Promise.resolve(true);
     } catch (e) {
       return Promise.resolve(false);

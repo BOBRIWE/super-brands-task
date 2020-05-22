@@ -48,6 +48,10 @@ export class FormContainerComponent implements OnInit {
     this.updateShops();
   }
 
+  saveManyToMany() {
+    this.createWorkerShopRequestService.createWorkerShopRequest(this.createWorkerShopRequestService.localManyToMany);
+  }
+
   async ngOnInit(): Promise<void> {
     await this.updateShops();
   }

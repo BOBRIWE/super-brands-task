@@ -12,7 +12,28 @@
     grid-template-rows: 70px 1fr;
 
     & > .buttons {
+      padding-bottom: 10px;
+      display: grid;
+      align-items: baseline;
+      justify-items: end;
+      & > .button {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 24px;
+        color: #474747;
 
+        height: 100%;
+        box-sizing: border-box;
+
+        border: 1px solid #474747;
+        border-radius: 4px;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
     }
   }
 }
