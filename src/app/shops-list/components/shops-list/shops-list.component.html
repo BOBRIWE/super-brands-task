@@ -1,5 +1,5 @@
 <header class="header">
-  <span>Нераспределенные магазины: 3</span>
+  <span>Нераспределенные магазины: {{shops.length}}</span>
 </header>
 <main class="main">
   <article class="main__item" *ngFor="let shop of shops" (click)="articleClicked(shop)">

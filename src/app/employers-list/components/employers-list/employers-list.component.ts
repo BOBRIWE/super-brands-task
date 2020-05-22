@@ -19,6 +19,7 @@ export class EmployersListComponent implements OnInit {
 
   @Output() employerChanged = new EventEmitter();
   @Output() removeShopClicked = new EventEmitter();
+  @Output() removeEmployerClicked = new EventEmitter();
 
   constructor(private employersService: EmployersService, createWorkerShopRequestService: CreateWorkerShopRequestService) {
     this.createWorkerShopRequestService = createWorkerShopRequestService;
@@ -36,6 +37,7 @@ export class EmployersListComponent implements OnInit {
   }
 
   async removeEmployer(event) {
+    this.removeEmployerClicked.emit(event);
     await this.employersService.removeEmployer(event);
     this.localEmployers = await this.employersService.getEmployersList();
     this.currentEmployer = this.localEmployers[this.localEmployers.length - 1];

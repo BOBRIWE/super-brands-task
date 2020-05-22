@@ -46,6 +46,10 @@ export class CreateWorkerShopRequestService {
     this.fakeManyToMany = this.fakeManyToMany.filter((item) => !(item.shopId === shopId && item.employerId === employerId));
   }
 
+  removeEmployer(employerId: number) {
+    this.fakeManyToMany = this.fakeManyToMany.filter((item) => item.employerId !== employerId);
+  }
+
   addEmployersToShop(shopId: number, employerIds: number[]) {
 
     for (const employerId of employerIds) {

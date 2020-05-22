@@ -43,6 +43,11 @@ export class FormContainerComponent implements OnInit {
     this.currentEmployer = employer;
   }
 
+  removeEmployer(employerId: number) {
+    this.createWorkerShopRequestService.removeEmployer(employerId);
+    this.updateShops();
+  }
+
   async ngOnInit(): Promise<void> {
     await this.updateShops();
   }
