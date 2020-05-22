@@ -7,17 +7,26 @@ import { EmployersHeaderItemComponent } from './components/employers-header-item
 import { EmployersHeaderEmptyItemComponent } from './components/employers-header-empty-item/employers-header-empty-item.component';
 import { ShopsListModule } from '../shops-list/shops-list.module';
 import { EmployersItemEmptyComponent } from './components/employers-item-empty/employers-item-empty.component';
+import { BackendModule } from '../backend/backend.module';
 
 
 
 @NgModule({
-  declarations: [EmployersListComponent, EmployersItemComponent, EmployerDescriptionComponent, EmployersHeaderItemComponent, EmployersHeaderEmptyItemComponent, EmployersItemEmptyComponent],
+  declarations: [
+    EmployersListComponent,
+    EmployersItemComponent,
+    EmployerDescriptionComponent,
+    EmployersHeaderItemComponent,
+    EmployersHeaderEmptyItemComponent,
+    EmployersItemEmptyComponent]
+  ,
   exports: [
     EmployersListComponent
   ],
   imports: [
     CommonModule,
-    ShopsListModule
+    ShopsListModule,
+    BackendModule
   ]
 })
 export class EmployersListModule { }

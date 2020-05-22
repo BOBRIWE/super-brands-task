@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EmployersService, IEmployer } from '../../../backend/services/employers.service';
 
 @Component({
   selector: 'app-employers-list',
@@ -7,7 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployersListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private employersService: EmployersService) { }
+
+  currentEmployer: IEmployer;
+  localEmployers: IEmployer[];
+
+  async addEmployer() {
+    await this.employersService.addEmployer();
+    this.localEmployers = await this.employersService.getEmployersList();
+    this.currentEmployer = this.localEmployers[this.localEmployers.length - 1];
+  }
+
+  async removeEmployer(event) {
+    await this.employersService.removeEmployer(event);
+    this.localEmployers = await this.employersService.getEmployersList();
+    this.currentEmployer = this.localEmployers[this.localEmployers.length - 1];
+  }
+
+  async selectEmployer(employer: IEmployer) {
+    this.currentEmployer = employer;
+  }
 
   ngOnInit(): void {
   }

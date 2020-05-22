@@ -1,6 +1,6 @@
 <article>
   <h4>Специалист</h4>
-  <app-employer-description></app-employer-description>
+  <app-employer-description [employer]="employer" (removeClicked)="binClicked($event)"></app-employer-description>
 </article>
 <article>
   <h4>Магазины</h4>

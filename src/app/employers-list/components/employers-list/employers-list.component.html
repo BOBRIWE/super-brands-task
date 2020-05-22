@@ -1,10 +1,13 @@
 <header class="header">
-  <app-employers-header-item class="--selected"></app-employers-header-item>
-  <app-employers-header-item></app-employers-header-item>
-  <app-employers-header-empty-item></app-employers-header-empty-item>
+  <app-employers-header-item
+    *ngFor="let employer of localEmployers"
+    [ngClass]="{'--selected': employer.id === currentEmployer.id}"
+    (click)="selectEmployer(employer)"
+  ></app-employers-header-item>
+  <app-employers-header-empty-item (click)="addEmployer()"></app-employers-header-empty-item>
 </header>
 
 <main>
-<!--  <app-employers-item></app-employers-item>-->
-  <app-employers-item-empty></app-employers-item-empty>
+  <app-employers-item (removeClicked)="removeEmployer($event)" *ngIf="currentEmployer" [employer]="currentEmployer"></app-employers-item>
+  <app-employers-item-empty *ngIf="!currentEmployer"></app-employers-item-empty>
 </main>
