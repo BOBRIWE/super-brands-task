@@ -1,0 +1,46 @@
+:host {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: auto 1fr;
+  column-gap: 16px;
+
+  height: 40px;
+
+  & > .avatar {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    background: rgba(0, 0, 0, 0.72);
+    border-radius: 20px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 20px;
+    color: #FFFFFF;
+  }
+
+  & > .content {
+    align-self: center;
+
+    & > .content__header {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16px;
+      color: rgba(0, 0, 0, 0.72);
+    }
+
+    & > .content__footer {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 11px;
+      line-height: 12px;
+      color: rgba(0, 0, 0, 0.32);
+    }
+  }
+}

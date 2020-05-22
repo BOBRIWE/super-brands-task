@@ -1,0 +1,39 @@
+:host {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  row-gap: 25px;
+
+  padding: 25px;
+  min-height: 440px;
+
+  border: 1px dashed rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  & > .header {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 0.32);
+  }
+
+  & > .main {
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: 25px;
+    height: fit-content;
+
+    & > .main__item {
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-columns: 60px 1fr;
+
+      & > img {
+        align-self: center;
+        justify-self: center;
+      }
+    }
+  }
+}
