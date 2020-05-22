@@ -8,6 +8,7 @@ import { IEmployer } from '../../../backend/services/employers.service';
 })
 export class EmployerDescriptionComponent implements OnInit {
   @Input() employer: IEmployer;
+  @Input() shopsCount: number;
   @Output() removeClicked = new EventEmitter();
   constructor() { }
 

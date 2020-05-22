@@ -10,6 +10,7 @@
 <main>
   <app-employers-item
     (removeClicked)="removeEmployer($event)"
+    (removeShopClicked)="removeShopClicked.emit($event)"
     *ngIf="currentEmployer"
     [employer]="currentEmployer"
     [localManyToMany]="createWorkerShopRequestService.localManyToMany"

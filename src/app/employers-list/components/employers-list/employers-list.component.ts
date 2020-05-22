@@ -16,7 +16,9 @@ export class EmployersListComponent implements OnInit {
     this.employerChanged.emit(value);
     this._currentEmployer = value;
   }
+
   @Output() employerChanged = new EventEmitter();
+  @Output() removeShopClicked = new EventEmitter();
 
   constructor(private employersService: EmployersService, createWorkerShopRequestService: CreateWorkerShopRequestService) {
     this.createWorkerShopRequestService = createWorkerShopRequestService;

@@ -18,6 +18,11 @@
       display: grid;
       grid-auto-flow: row;
       row-gap: 20px;
+
+      & > .shop__item {
+        display: grid;
+        grid-template-columns: 1fr auto;
+      }
     }
   }
 }

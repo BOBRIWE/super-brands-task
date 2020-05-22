@@ -25,10 +25,6 @@ export class CreateWorkerShopRequestService {
     return [...this.fakeManyToMany];
   }
 
-  set localManyToMany(value: IManyToManyItem[]) {
-    this.fakeManyToMany = value;
-  }
-
   addShopsToEmployer(employerId: number, shopIds: number[]) {
 
     for (const shopId of shopIds) {
@@ -44,6 +40,10 @@ export class CreateWorkerShopRequestService {
       }
     }
 
+  }
+
+  removeShopFromEmployer(shopId: number, employerId: number) {
+    this.fakeManyToMany = this.fakeManyToMany.filter((item) => !(item.shopId === shopId && item.employerId === employerId));
   }
 
   addEmployersToShop(shopId: number, employerIds: number[]) {

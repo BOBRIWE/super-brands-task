@@ -1,11 +1,14 @@
 <article>
   <h4>Специалист</h4>
-  <app-employer-description [employer]="employer" (removeClicked)="binClicked($event)"></app-employer-description>
+  <app-employer-description [employer]="employer" (removeClicked)="binClicked($event)" [shopsCount]="employerShops.length"></app-employer-description>
 </article>
 <article class="shops">
   <h4>Магазины</h4>
-  <span *ngIf="!employerShops && employerShops.length === 0">Не назначены</span>
+  <span *ngIf="employerShops && employerShops.length === 0">Не назначены</span>
   <section class="shop__list">
-    <app-shop-item [shop]="shop" *ngFor="let shop of employerShops"></app-shop-item>
+    <article class="shop__item" *ngFor="let shop of employerShops">
+      <app-shop-item [shop]="shop"></app-shop-item>
+      <img (click)="minusClicked(shop)" src="assets/minus.svg">
+    </article>
   </section>
 </article>

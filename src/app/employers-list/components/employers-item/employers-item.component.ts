@@ -13,12 +13,18 @@ export class EmployersItemComponent implements OnInit, OnChanges {
   @Input() localManyToMany: IManyToManyItem[];
   @Output() removeClicked = new EventEmitter();
 
-  constructor(private shopsService: ShopsService, private createWorkerShopRequestService: CreateWorkerShopRequestService) { }
+  @Output() removeShopClicked = new EventEmitter();
+
+  constructor(private shopsService: ShopsService) { }
 
   employerShops: IShop[] = [];
 
   binClicked(event) {
     this.removeClicked.emit(event);
+  }
+
+  minusClicked(shop: IShop) {
+    this.removeShopClicked.emit(shop);
   }
 
   async updateEmployerShops() {
@@ -39,6 +45,10 @@ export class EmployersItemComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (JSON.stringify(changes.localManyToMany.previousValue) !== JSON.stringify(changes.localManyToMany.currentValue)) {
+      this.updateEmployerShops();
+    }
+
+    if (changes.employer && (JSON.stringify(changes.employer.previousValue) !== JSON.stringify(changes.employer.currentValue))) {
       this.updateEmployerShops();
     }
   }

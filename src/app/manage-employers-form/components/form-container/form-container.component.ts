@@ -34,6 +34,11 @@ export class FormContainerComponent implements OnInit {
     this.emptyShops = newShops;
   }
 
+  removeShopClicked(shop: IShop) {
+    this.createWorkerShopRequestService.removeShopFromEmployer(shop.id, this.currentEmployer.id);
+    this.updateShops();
+  }
+
   employerChanged(employer: IEmployer) {
     this.currentEmployer = employer;
   }

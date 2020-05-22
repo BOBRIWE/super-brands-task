@@ -1,5 +1,8 @@
 <section>
-  <app-employers-list (employerChanged)="employerChanged($event)"></app-employers-list>
+  <app-employers-list
+    (employerChanged)="employerChanged($event)"
+    (removeShopClicked)="removeShopClicked($event)"
+  ></app-employers-list>
 </section>
 <section class="right">
   <article class="buttons"></article>
