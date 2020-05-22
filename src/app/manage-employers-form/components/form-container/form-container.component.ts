@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { IShop, ShopsService } from '../../../backend/services/shops.service';
+import { CreateWorkerShopRequestService } from '../../../backend/services/create-worker-shop-request.service';
+import { IEmployer } from '../../../backend/services/employers.service';
 
 @Component({
   selector: 'app-form-container',
@@ -6,10 +9,37 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./form-container.component.scss'],
 })
 export class FormContainerComponent implements OnInit {
+  currentEmployer: IEmployer;
+  emptyShops: IShop[] = [];
 
-  constructor() { }
+  constructor(private createWorkerShopRequestService: CreateWorkerShopRequestService, private shopsService: ShopsService) { }
 
-  ngOnInit(): void {
+  shopClicked(shop: IShop) {
+    if (this.currentEmployer !== undefined) {
+      this.createWorkerShopRequestService.addShopsToEmployer(this.currentEmployer.id, [shop.id]);
+      this.updateShops();
+    }
+  }
+
+  async updateShops() {
+    const newShops = [];
+    const shops = await this.shopsService.getShops();
+    for (const shop of shops) {
+      const found = this.createWorkerShopRequestService.localManyToMany.find((item) => item.shopId === shop.id);
+      if (!found) {
+        newShops.push(shop);
+      }
+    }
+
+    this.emptyShops = newShops;
+  }
+
+  employerChanged(employer: IEmployer) {
+    this.currentEmployer = employer;
+  }
+
+  async ngOnInit(): Promise<void> {
+    await this.updateShops();
   }
 
 }

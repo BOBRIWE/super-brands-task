@@ -2,8 +2,10 @@
   <h4>Специалист</h4>
   <app-employer-description [employer]="employer" (removeClicked)="binClicked($event)"></app-employer-description>
 </article>
-<article>
+<article class="shops">
   <h4>Магазины</h4>
-  <span>Не назначены</span>
-  <app-shop-item></app-shop-item>
+  <span *ngIf="!employerShops && employerShops.length === 0">Не назначены</span>
+  <section class="shop__list">
+    <app-shop-item [shop]="shop" *ngFor="let shop of employerShops"></app-shop-item>
+  </section>
 </article>

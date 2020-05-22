@@ -1,7 +1,7 @@
 <section>
-  <app-employers-list></app-employers-list>
+  <app-employers-list (employerChanged)="employerChanged($event)"></app-employers-list>
 </section>
 <section class="right">
   <article class="buttons"></article>
-  <app-shops-list></app-shops-list>
+  <app-shops-list (shopClicked)="shopClicked($event)" [shops]="emptyShops"></app-shops-list>
 </section>

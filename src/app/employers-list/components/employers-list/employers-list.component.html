@@ -8,6 +8,11 @@
 </header>
 
 <main>
-  <app-employers-item (removeClicked)="removeEmployer($event)" *ngIf="currentEmployer" [employer]="currentEmployer"></app-employers-item>
+  <app-employers-item
+    (removeClicked)="removeEmployer($event)"
+    *ngIf="currentEmployer"
+    [employer]="currentEmployer"
+    [localManyToMany]="createWorkerShopRequestService.localManyToMany"
+  ></app-employers-item>
   <app-employers-item-empty *ngIf="!currentEmployer"></app-employers-item-empty>
 </main>
