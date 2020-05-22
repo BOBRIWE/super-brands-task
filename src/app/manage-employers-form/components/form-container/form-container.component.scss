@@ -6,4 +6,13 @@
   padding: 35px;
 
   background: rgba(0, 0, 0, 0.02);
+
+  & > .right {
+    display: grid;
+    grid-template-rows: 70px 1fr;
+
+    & > .buttons {
+
+    }
+  }
 }
