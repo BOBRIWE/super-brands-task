@@ -1,0 +1,11 @@
+:host {
+
+  & > .header {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 60px;
+    column-gap: 10px;
+
+    height: 70px;
+  }
+}

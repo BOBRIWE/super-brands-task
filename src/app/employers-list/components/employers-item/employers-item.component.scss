@@ -4,10 +4,12 @@
   padding: 25px;
 
   min-height: 440px;
-  background: #F2F2F2;
+  background: #FFFFFF;
 
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
   border-radius: 0px 6px 6px 6px;
 
   grid-template-rows: auto auto 1fr;
+
+  z-index: 10;
 }
