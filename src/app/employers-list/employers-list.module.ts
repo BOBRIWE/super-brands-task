@@ -6,11 +6,12 @@ import { EmployerDescriptionComponent } from './components/employer-description/
 import { EmployersHeaderItemComponent } from './components/employers-header-item/employers-header-item.component';
 import { EmployersHeaderEmptyItemComponent } from './components/employers-header-empty-item/employers-header-empty-item.component';
 import { ShopsListModule } from '../shops-list/shops-list.module';
+import { EmployersItemEmptyComponent } from './components/employers-item-empty/employers-item-empty.component';
 
 
 
 @NgModule({
-  declarations: [EmployersListComponent, EmployersItemComponent, EmployerDescriptionComponent, EmployersHeaderItemComponent, EmployersHeaderEmptyItemComponent],
+  declarations: [EmployersListComponent, EmployersItemComponent, EmployerDescriptionComponent, EmployersHeaderItemComponent, EmployersHeaderEmptyItemComponent, EmployersItemEmptyComponent],
   exports: [
     EmployersListComponent
   ],

@@ -1,0 +1,35 @@
+:host {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  min-height: 440px;
+  padding: 50px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px dashed rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+
+  & > section {
+    & > header {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 16px;
+      text-align: center;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(0, 0, 0, 0.72);
+    }
+
+    & > main {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 13px;
+      line-height: 22px;
+      text-align: center;
+      color: rgba(0, 0, 0, 0.44);
+    }
+  }
+}

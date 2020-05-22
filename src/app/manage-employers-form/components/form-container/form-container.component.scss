@@ -1,6 +1,7 @@
 :host {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  column-gap: 40px;
 
   padding: 35px;
 
