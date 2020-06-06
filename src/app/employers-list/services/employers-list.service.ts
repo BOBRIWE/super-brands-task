@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { EmployersListModule } from '../employers-list.module';
 import { Subject } from 'rxjs';
 import { IShop } from '../../backend/services/shops.service';
+import { IEmployer } from '../../backend/services/employers.service';
 
 @Injectable()
 export class EmployersListService {
@@ -10,5 +10,5 @@ export class EmployersListService {
 
   removeShopClick = new Subject<IShop>();
 
-  removeEmployerClick = new Subject();
+  removeEmployerClick = new Subject<IEmployer>();
 }

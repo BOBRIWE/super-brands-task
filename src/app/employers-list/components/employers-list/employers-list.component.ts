@@ -19,7 +19,6 @@ export class EmployersListComponent implements OnInit {
   }
 
   @Output() employerChanged = new EventEmitter();
-  @Output() removeEmployerClicked = new EventEmitter();
 
   constructor(
     private employersService: EmployersService,
@@ -39,9 +38,8 @@ export class EmployersListComponent implements OnInit {
     this.currentEmployer = this.localEmployers[this.localEmployers.length - 1];
   }
 
-  async removeEmployer(event) {
-    this.removeEmployerClicked.emit(event);
-    await this.employersService.removeEmployer(event);
+  async removeEmployer(employerId: number) {
+    await this.employersService.removeEmployer(employerId);
     this.localEmployers = await this.employersService.getEmployersList();
     this.currentEmployer = this.localEmployers[this.localEmployers.length - 1];
   }
@@ -51,6 +49,9 @@ export class EmployersListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.employersListService.removeEmployerClick.subscribe((employer) => {
+      this.removeEmployer(employer.id);
+    });
   }
 
 }

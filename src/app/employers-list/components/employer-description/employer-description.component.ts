@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IEmployer } from '../../../backend/services/employers.service';
+import { EmployersListService } from '../../services/employers-list.service';
 
 @Component({
   selector: 'app-employer-description',
@@ -9,11 +10,10 @@ import { IEmployer } from '../../../backend/services/employers.service';
 export class EmployerDescriptionComponent implements OnInit {
   @Input() employer: IEmployer;
   @Input() shopsCount: number;
-  @Output() removeClicked = new EventEmitter();
-  constructor() { }
+  constructor(private employersListService: EmployersListService) { }
 
   binClicked() {
-    this.removeClicked.emit(this.employer.id);
+    this.employersListService.removeEmployerClick.next(this.employer);
   }
 
   ngOnInit(): void {

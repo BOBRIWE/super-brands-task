@@ -12,15 +12,10 @@ import { EmployersListService } from '../../services/employers-list.service';
 export class EmployersItemComponent implements OnInit, OnChanges {
   @Input() employer: IEmployer;
   @Input() localManyToMany: IManyToManyItem[];
-  @Output() removeClicked = new EventEmitter();
 
   constructor(private shopsService: ShopsService, private employersListService: EmployersListService) { }
 
   employerShops: IShop[] = [];
-
-  binClicked(event) {
-    this.removeClicked.emit(event);
-  }
 
   minusClicked(shop: IShop) {
     this.employersListService.removeShopClick.next(shop);

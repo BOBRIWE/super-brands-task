@@ -61,6 +61,10 @@ export class FormContainerComponent implements OnInit {
     this.employersListService.removeShopClick.subscribe((shop) => {
       this.removeShopClicked(shop);
     });
+
+    this.employersListService.removeEmployerClick.subscribe((employer) => {
+      this.removeEmployer(employer.id);
+    });
     await this.updateShops();
   }
 
