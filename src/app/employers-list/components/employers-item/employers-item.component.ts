@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { IEmployer } from '../../../backend/services/employers.service';
 import { IShop, ShopsService } from '../../../backend/services/shops.service';
-import { CreateWorkerShopRequestService, IManyToManyItem } from '../../../backend/services/create-worker-shop-request.service';
+import { IManyToManyItem } from '../../../backend/services/create-worker-shop-request.service';
+import { EmployersListService } from '../../services/employers-list.service';
 
 @Component({
   selector: 'app-employers-item',
@@ -13,9 +14,7 @@ export class EmployersItemComponent implements OnInit, OnChanges {
   @Input() localManyToMany: IManyToManyItem[];
   @Output() removeClicked = new EventEmitter();
 
-  @Output() removeShopClicked = new EventEmitter();
-
-  constructor(private shopsService: ShopsService) { }
+  constructor(private shopsService: ShopsService, private employersListService: EmployersListService) { }
 
   employerShops: IShop[] = [];
 
@@ -24,7 +23,7 @@ export class EmployersItemComponent implements OnInit, OnChanges {
   }
 
   minusClicked(shop: IShop) {
-    this.removeShopClicked.emit(shop);
+    this.employersListService.removeShopClick.next(shop);
   }
 
   async updateEmployerShops() {

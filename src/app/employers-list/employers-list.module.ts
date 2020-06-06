@@ -7,6 +7,7 @@ import { EmployersHeaderItemComponent } from './components/employers-header-item
 import { EmployersHeaderEmptyItemComponent } from './components/employers-header-empty-item/employers-header-empty-item.component';
 import { ShopsListModule } from '../shops-list/shops-list.module';
 import { EmployersItemEmptyComponent } from './components/employers-item-empty/employers-item-empty.component';
+import { EmployersListService } from './services/employers-list.service';
 
 
 
@@ -21,6 +22,9 @@ import { EmployersItemEmptyComponent } from './components/employers-item-empty/e
   ,
   exports: [
     EmployersListComponent
+  ],
+  providers: [
+    EmployersListService
   ],
   imports: [
     CommonModule,

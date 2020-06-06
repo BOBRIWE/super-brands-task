@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { EmployersService, IEmployer } from '../../../backend/services/employers.service';
 import { CreateWorkerShopRequestService } from '../../../backend/services/create-worker-shop-request.service';
+import { EmployersListService } from '../../services/employers-list.service';
 
 @Component({
   selector: 'app-employers-list',
@@ -18,17 +19,19 @@ export class EmployersListComponent implements OnInit {
   }
 
   @Output() employerChanged = new EventEmitter();
-  @Output() removeShopClicked = new EventEmitter();
   @Output() removeEmployerClicked = new EventEmitter();
 
-  constructor(private employersService: EmployersService, createWorkerShopRequestService: CreateWorkerShopRequestService) {
+  constructor(
+    private employersService: EmployersService,
+    public createWorkerShopRequestService: CreateWorkerShopRequestService,
+    private employersListService: EmployersListService
+  ) {
     this.createWorkerShopRequestService = createWorkerShopRequestService;
   }
 
   // tslint:disable-next-line:variable-name
   private _currentEmployer: IEmployer;
   localEmployers: IEmployer[];
-  createWorkerShopRequestService: CreateWorkerShopRequestService;
 
   async addEmployer() {
     await this.employersService.addEmployer();
