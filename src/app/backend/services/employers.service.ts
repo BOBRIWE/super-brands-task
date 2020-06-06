@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BackendModule } from '../backend.module';
 
-@Injectable({
-  providedIn: BackendModule
-})
+@Injectable()
 export class EmployersService {
   private fakeEmployersPool: IEmployer[] = [
     { id: 1, fullName: 'Аношкин Станислав Касьянович', avatarUrl: 'assets/avatar-big.svg' },

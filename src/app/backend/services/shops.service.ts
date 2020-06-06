@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BackendModule } from '../backend.module';
 
-@Injectable({
-  providedIn: BackendModule
-})
+@Injectable()
 export class ShopsService {
   private fakeShops: IShop[] = [
     {id: 1, address: 'Магазин SBS Москва', name: 'Россия, г. Москва, Бутырская 77' },
