@@ -14,11 +14,9 @@ export class EmployersListComponent implements OnInit {
   }
 
   set currentEmployer(value: IEmployer) {
-    this.employerChanged.emit(value);
+    this.employersListService.activeEmployerChange.next(value);
     this._currentEmployer = value;
   }
-
-  @Output() employerChanged = new EventEmitter();
 
   constructor(
     private employersService: EmployersService,

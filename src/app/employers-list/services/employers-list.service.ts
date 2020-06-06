@@ -11,4 +11,6 @@ export class EmployersListService {
   removeShopClick = new Subject<IShop>();
 
   removeEmployerClick = new Subject<IEmployer>();
+
+  activeEmployerChange = new Subject<IEmployer>();
 }
