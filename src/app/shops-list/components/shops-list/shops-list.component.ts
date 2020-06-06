@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { IShop, ShopsService } from '../../../backend/services/shops.service';
-import { CreateWorkerShopRequestService } from '../../../backend/services/create-worker-shop-request.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { IShop } from '../../../backend/services/shops.service';
 
 @Component({
   selector: 'app-shops-list',
