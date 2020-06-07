@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class ShopsService {
@@ -17,8 +18,8 @@ export class ShopsService {
 
   constructor() { }
 
-  async getShops(): Promise<IShop[]> {
-    return Promise.resolve(this.fakeShops);
+  getShops(): Observable<IShop[]> {
+    return of(this.fakeShops);
   }
 }
 

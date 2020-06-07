@@ -21,17 +21,18 @@ export class EmployersItemComponent implements OnInit, OnChanges {
     this.employersListService.removeShopClick.next(shop);
   }
 
-  async updateEmployerShops() {
-    const shops = await this.shopsService.getShops();
-    const employerShops = [];
+  updateEmployerShops() {
+    this.shopsService.getShops().subscribe((shops) => {
+      const employerShops = [];
 
-    for (const item of this.localManyToMany) {
-      if (item.employerId === this.employer.id) {
-        employerShops.push(shops.find((shop) => shop.id === item.shopId));
+      for (const item of this.localManyToMany) {
+        if (item.employerId === this.employer.id) {
+          employerShops.push(shops.find((shop) => shop.id === item.shopId));
+        }
       }
-    }
 
-    this.employerShops = employerShops;
+      this.employerShops = employerShops;
+    });
   }
 
   ngOnInit(): void {

@@ -26,17 +26,18 @@ export class FormContainerComponent implements OnInit {
     }
   }
 
-  async updateShops() {
-    const newShops = [];
-    const shops = await this.shopsService.getShops();
-    for (const shop of shops) {
-      const found = this.createWorkerShopRequestService.localManyToMany.find((item) => item.shopId === shop.id);
-      if (!found) {
-        newShops.push(shop);
+  updateShops() {
+    this.shopsService.getShops().subscribe((shops) => {
+      const newShops = [];
+      for (const shop of shops) {
+        const found = this.createWorkerShopRequestService.localManyToMany.find((item) => item.shopId === shop.id);
+        if (!found) {
+          newShops.push(shop);
+        }
       }
-    }
 
-    this.emptyShops = newShops;
+      this.emptyShops = newShops;
+    });
   }
 
   removeShopClicked(shop: IShop) {
