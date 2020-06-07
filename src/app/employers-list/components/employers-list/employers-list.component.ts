@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { EmployersService, IEmployer } from '../../../backend/services/employers.service';
 import { CreateWorkerShopRequestService } from '../../../backend/services/create-worker-shop-request.service';
 import { EmployersListService } from '../../services/employers-list.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-employers-list',
@@ -30,16 +31,26 @@ export class EmployersListComponent implements OnInit {
   private _currentEmployer: IEmployer;
   localEmployers: IEmployer[];
 
-  async addEmployer() {
-    await this.employersService.addEmployer();
-    this.localEmployers = await this.employersService.getEmployersList();
-    this.currentEmployer = this.localEmployers[this.localEmployers.length - 1];
+  addEmployer() {
+    this.employersService.addEmployer()
+      .pipe(switchMap(() => {
+        return this.employersService.getEmployersList();
+      }))
+      .subscribe((employers) => {
+        this.localEmployers = employers;
+        this.currentEmployer = this.localEmployers[this.localEmployers.length - 1];
+      });
   }
 
-  async removeEmployer(employerId: number) {
-    await this.employersService.removeEmployer(employerId);
-    this.localEmployers = await this.employersService.getEmployersList();
-    this.currentEmployer = this.localEmployers[this.localEmployers.length - 1];
+  removeEmployer(employerId: number) {
+    this.employersService.removeEmployer(employerId)
+      .pipe(switchMap(() => {
+        return this.employersService.getEmployersList();
+      }))
+      .subscribe((employers) => {
+        this.localEmployers = employers;
+        this.currentEmployer = this.localEmployers[this.localEmployers.length - 1];
+      });
   }
 
   async selectEmployer(employer: IEmployer) {

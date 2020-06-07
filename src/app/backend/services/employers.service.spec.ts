@@ -1,6 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
 import { EmployersService } from './employers.service';
+import { switchMap } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 
 describe('EmployersService', () => {
   let service: EmployersService;
@@ -14,29 +16,45 @@ describe('EmployersService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should add employer', async () => {
-    const employers = await service.getEmployersList();
-    expect(employers.length).toBe(0);
-
-    await service.addEmployer();
-    const newEmployers = await service.getEmployersList();
-    expect(newEmployers.length).toBe(1);
+  it('should add employer', (done) => {
+    service.getEmployersList()
+      .pipe(switchMap((employers) => {
+        expect(employers.length).toBe(0);
+        return service.addEmployer();
+      }))
+      .pipe(switchMap(() => {
+        return service.getEmployersList();
+      }))
+      .subscribe((newEmployers) => {
+        expect(newEmployers.length).toBe(1);
+        done();
+      });
   });
 
-  it('should remove employer by id', async () => {
-    await service.addEmployer();
-    await service.addEmployer();
-    await service.addEmployer();
+  it('should remove employer by id', (done) => {
+    let employersCount: number;
 
-    const employers = await service.getEmployersList();
-    const employersCount = employers.length;
+    forkJoin([
+      service.addEmployer(),
+      service.addEmployer(),
+      service.addEmployer()
+    ])
+      .pipe(switchMap(() => {
+        return service.getEmployersList();
+      }))
+      .pipe(switchMap((employers) => {
+        employersCount = employers.length;
+        return service.removeEmployer(3);
+      }))
+      .pipe(switchMap(() => {
+        return service.getEmployersList();
+      }))
+      .subscribe((newEmployers) => {
+        const newEmployersCount = newEmployers.length;
 
-    await service.removeEmployer(3);
-
-    const newEmployers = await service.getEmployersList();
-    const newEmployersCount = newEmployers.length;
-
-    expect(newEmployersCount).toBe(employersCount - 1);
-    expect(newEmployers.find((employer) => employer.id === 3)).toBe(undefined);
+        expect(newEmployersCount).toBe(employersCount - 1);
+        expect(newEmployers.find((employer) => employer.id === 3)).toBe(undefined);
+        done();
+      });
   });
 });
