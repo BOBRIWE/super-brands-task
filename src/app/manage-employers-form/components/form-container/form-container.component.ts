@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IShop, ShopsService } from '../../../backend/services/shops.service';
 import { CreateWorkerShopRequestService } from '../../../backend/services/create-worker-shop-request.service';
 import { IEmployer } from '../../../backend/services/employers.service';
+import { EmployersListService } from '../../../employers-list/services/employers-list.service';
 
 @Component({
   selector: 'app-form-container',
@@ -12,7 +13,11 @@ export class FormContainerComponent implements OnInit {
   currentEmployer: IEmployer;
   emptyShops: IShop[] = [];
 
-  constructor(private createWorkerShopRequestService: CreateWorkerShopRequestService, private shopsService: ShopsService) { }
+  constructor(
+    private createWorkerShopRequestService: CreateWorkerShopRequestService,
+    private shopsService: ShopsService,
+    private employersListService: EmployersListService
+  ) { }
 
   shopClicked(shop: IShop) {
     if (this.currentEmployer !== undefined) {
@@ -21,17 +26,18 @@ export class FormContainerComponent implements OnInit {
     }
   }
 
-  async updateShops() {
-    const newShops = [];
-    const shops = await this.shopsService.getShops();
-    for (const shop of shops) {
-      const found = this.createWorkerShopRequestService.localManyToMany.find((item) => item.shopId === shop.id);
-      if (!found) {
-        newShops.push(shop);
+  updateShops() {
+    this.shopsService.getShops().subscribe((shops) => {
+      const newShops = [];
+      for (const shop of shops) {
+        const found = this.createWorkerShopRequestService.localManyToMany.find((item) => item.shopId === shop.id);
+        if (!found) {
+          newShops.push(shop);
+        }
       }
-    }
 
-    this.emptyShops = newShops;
+      this.emptyShops = newShops;
+    });
   }
 
   removeShopClicked(shop: IShop) {
@@ -53,6 +59,18 @@ export class FormContainerComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    this.employersListService.removeShopClick.subscribe((shop) => {
+      this.removeShopClicked(shop);
+    });
+
+    this.employersListService.removeEmployerClick.subscribe((employer) => {
+      this.removeEmployer(employer.id);
+    });
+
+    this.employersListService.activeEmployerChange.subscribe((employer) => {
+      this.employerChanged(employer);
+    });
+
     await this.updateShops();
   }
 

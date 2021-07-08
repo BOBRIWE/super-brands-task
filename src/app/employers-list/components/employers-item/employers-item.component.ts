@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { IEmployer } from '../../../backend/services/employers.service';
 import { IShop, ShopsService } from '../../../backend/services/shops.service';
-import { CreateWorkerShopRequestService, IManyToManyItem } from '../../../backend/services/create-worker-shop-request.service';
+import { IManyToManyItem } from '../../../backend/services/create-worker-shop-request.service';
+import { EmployersListService } from '../../services/employers-list.service';
 
 @Component({
   selector: 'app-employers-item',
@@ -11,33 +12,27 @@ import { CreateWorkerShopRequestService, IManyToManyItem } from '../../../backen
 export class EmployersItemComponent implements OnInit, OnChanges {
   @Input() employer: IEmployer;
   @Input() localManyToMany: IManyToManyItem[];
-  @Output() removeClicked = new EventEmitter();
 
-  @Output() removeShopClicked = new EventEmitter();
-
-  constructor(private shopsService: ShopsService) { }
+  constructor(private shopsService: ShopsService, private employersListService: EmployersListService) { }
 
   employerShops: IShop[] = [];
 
-  binClicked(event) {
-    this.removeClicked.emit(event);
-  }
-
   minusClicked(shop: IShop) {
-    this.removeShopClicked.emit(shop);
+    this.employersListService.removeShopClick.next(shop);
   }
 
-  async updateEmployerShops() {
-    const shops = await this.shopsService.getShops();
-    const employerShops = [];
+  updateEmployerShops() {
+    this.shopsService.getShops().subscribe((shops) => {
+      const employerShops = [];
 
-    for (const item of this.localManyToMany) {
-      if (item.employerId === this.employer.id) {
-        employerShops.push(shops.find((shop) => shop.id === item.shopId));
+      for (const item of this.localManyToMany) {
+        if (item.employerId === this.employer.id) {
+          employerShops.push(shops.find((shop) => shop.id === item.shopId));
+        }
       }
-    }
 
-    this.employerShops = employerShops;
+      this.employerShops = employerShops;
+    });
   }
 
   ngOnInit(): void {

@@ -14,9 +14,10 @@ describe('ShopsService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return shops', async () => {
-    const shops = await service.getShops();
-
-    expect(shops.length).toBe(10);
+  it('should return shops', (done) => {
+    service.getShops().subscribe((shops) => {
+      expect(shops.length).toBe(10);
+      done();
+    });
   });
 });

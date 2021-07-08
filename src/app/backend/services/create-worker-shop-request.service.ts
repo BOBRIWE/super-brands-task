@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
-import { IEmployer } from './employers.service';
-import { IShop } from './shops.service';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CreateWorkerShopRequestService {
   private fakeManyToMany: IManyToManyItem[] = [];
 

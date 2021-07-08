@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BackendModule } from '../backend.module';
+import { Observable, of } from 'rxjs';
 
-@Injectable({
-  providedIn: BackendModule
-})
+@Injectable()
 export class EmployersService {
   private fakeEmployersPool: IEmployer[] = [
     { id: 1, fullName: 'Аношкин Станислав Касьянович', avatarUrl: 'assets/avatar-big.svg' },
@@ -19,23 +17,23 @@ export class EmployersService {
 
   constructor() { }
 
-  async getEmployersList(): Promise<IEmployer[]> {
-    return Promise.resolve(this.fakeEmployers);
+  getEmployersList(): Observable<IEmployer[]> {
+    return of(this.fakeEmployers);
   }
 
-  async removeEmployer(employerId: number): Promise<boolean> {
+  removeEmployer(employerId: number): Observable<boolean> {
     this.fakeEmployers = this.fakeEmployers.filter((employer) => employer.id !== employerId);
-    return Promise.resolve(true);
+    return of(true);
   }
 
-  async addEmployer(): Promise<boolean> {
+  addEmployer(): Observable<boolean> {
     const employer = this.fakeEmployersPool.shift();
 
     if (employer !== undefined) {
       this.fakeEmployers.push(employer);
-      return Promise.resolve(true);
+      return of(true);
     } else {
-      return Promise.resolve(false);
+      return of(false);
     }
   }
 }

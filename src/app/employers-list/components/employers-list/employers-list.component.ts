@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { EmployersService, IEmployer } from '../../../backend/services/employers.service';
 import { CreateWorkerShopRequestService } from '../../../backend/services/create-worker-shop-request.service';
+import { EmployersListService } from '../../services/employers-list.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-employers-list',
@@ -13,34 +15,42 @@ export class EmployersListComponent implements OnInit {
   }
 
   set currentEmployer(value: IEmployer) {
-    this.employerChanged.emit(value);
+    this.employersListService.activeEmployerChange.next(value);
     this._currentEmployer = value;
   }
 
-  @Output() employerChanged = new EventEmitter();
-  @Output() removeShopClicked = new EventEmitter();
-  @Output() removeEmployerClicked = new EventEmitter();
-
-  constructor(private employersService: EmployersService, createWorkerShopRequestService: CreateWorkerShopRequestService) {
+  constructor(
+    private employersService: EmployersService,
+    public createWorkerShopRequestService: CreateWorkerShopRequestService,
+    private employersListService: EmployersListService
+  ) {
     this.createWorkerShopRequestService = createWorkerShopRequestService;
   }
 
   // tslint:disable-next-line:variable-name
   private _currentEmployer: IEmployer;
   localEmployers: IEmployer[];
-  createWorkerShopRequestService: CreateWorkerShopRequestService;
 
-  async addEmployer() {
-    await this.employersService.addEmployer();
-    this.localEmployers = await this.employersService.getEmployersList();
-    this.currentEmployer = this.localEmployers[this.localEmployers.length - 1];
+  addEmployer() {
+    this.employersService.addEmployer()
+      .pipe(switchMap(() => {
+        return this.employersService.getEmployersList();
+      }))
+      .subscribe((employers) => {
+        this.localEmployers = employers;
+        this.currentEmployer = this.localEmployers[this.localEmployers.length - 1];
+      });
   }
 
-  async removeEmployer(event) {
-    this.removeEmployerClicked.emit(event);
-    await this.employersService.removeEmployer(event);
-    this.localEmployers = await this.employersService.getEmployersList();
-    this.currentEmployer = this.localEmployers[this.localEmployers.length - 1];
+  removeEmployer(employerId: number) {
+    this.employersService.removeEmployer(employerId)
+      .pipe(switchMap(() => {
+        return this.employersService.getEmployersList();
+      }))
+      .subscribe((employers) => {
+        this.localEmployers = employers;
+        this.currentEmployer = this.localEmployers[this.localEmployers.length - 1];
+      });
   }
 
   async selectEmployer(employer: IEmployer) {
@@ -48,6 +58,9 @@ export class EmployersListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.employersListService.removeEmployerClick.subscribe((employer) => {
+      this.removeEmployer(employer.id);
+    });
   }
 
 }
